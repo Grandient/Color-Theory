@@ -175,7 +175,7 @@ MonoBehaviour:
   RedValue: {r: 1, g: 0, b: 0, a: 1}
   GreenValue: {r: 0, g: 1, b: 0, a: 1}
   BlueValue: {r: 0, g: 0, b: 1, a: 1}
-  OutputValue: {r: 0, g: 0, b: 0, a: 0}
+  OutputValue: {r: 1, g: 1, b: 1, a: 0}
   RedValueStr: 
   GreenValueStr: 
   BlueValueStr: 

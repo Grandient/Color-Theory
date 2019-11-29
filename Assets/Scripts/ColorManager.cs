@@ -26,7 +26,7 @@ public class CM
         return target.GetComponent<MeshRenderer>().material.color;
     }
 
-    public static string ConverToHex(Color color)
+    public static string ConvertToHex(Color color)
     {
         return "#" + ColorUtility.ToHtmlStringRGB(color);
     }
