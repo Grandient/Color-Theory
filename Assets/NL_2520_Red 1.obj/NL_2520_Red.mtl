@@ -1,0 +1,265 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 27.11.2013 12:06:37
+
+newmtl NL_2520_Body__Red
+	Ns 100.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5000 0.5000 0.5000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\SeyhanEFENDILER\Lumia_2520\NL_2520_Presentation_Files\NL_2520_Models\NL_2520_Red\NL_2520_R_Body_Diff.jpg
+	map_Kd D:\SeyhanEFENDILER\Lumia_2520\NL_2520_Presentation_Files\NL_2520_Models\NL_2520_Red\NL_2520_R_Body_Diff.jpg
+
+newmtl NL_2520_Screen__Red
+	Ns 100.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5000 0.5000 0.5000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\SeyhanEFENDILER\Lumia_2520\NL_2520_Presentation_Files\NL_2520_Models\NL_2520_Red\NL_Screen_Diff.JPG
+	map_Kd D:\SeyhanEFENDILER\Lumia_2520\NL_2520_Presentation_Files\NL_2520_Models\NL_2520_Red\NL_Screen_Diff.JPG
+	map_d D:\SeyhanEFENDILER\Lumia_2520\NL_2520_Presentation_Files\NL_2520_Models\NL_2520_Red\NL_2520_Screen_Opac_02.jpg
+
+newmtl NL_2520_Buttons_Red
+	Ns 100.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_SSocket__Red
+	Ns 75.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.7490 0.7490 0.7490
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_Charging_Plug_Pin__Red
+	Ns 75.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_SSocket_YMetal_Red
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9922 0.3255 0.0000
+	Ks 0.8549 0.6235 0.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_SSocket_Inner_Metal__Red
+	Ns 75.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.2941 0.2941 0.2941
+	Kd 0.2941 0.2941 0.2941
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_BCam_Cap_Chrom__Red
+	Ns 95.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_BCam_Cap_PBlack__Red
+	Ns 100.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_BCam_Cap_Gloss__Red
+	Ns 100.0000
+	Ni 1.5000
+	d 0.0000
+	Tr 1.0000
+	Tf 0.0000 0.0000 0.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_BCLens_Frame__Red
+	Ns 60.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0471 0.0471 0.0471
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_BCLens__Red
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\SeyhanEFENDILER\Lumia_2520\NL_2520_Presentation_Files\NL_2520_Models\NL_2520_Red\NL_1520_Lens.JPG
+	map_Kd D:\SeyhanEFENDILER\Lumia_2520\NL_2520_Presentation_Files\NL_2520_Models\NL_2520_Red\NL_1520_Lens.JPG
+
+newmtl NL_2520_USB_Socket_Slot__Red
+	Ns 100.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_USB_Socket_MFrame__Red
+	Ns 75.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.2941 0.2941 0.2941
+	Kd 0.2941 0.2941 0.2941
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_HDMI_Socket_MFrame__Red
+	Ns 75.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.2941 0.2941 0.2941
+	Kd 0.2941 0.2941 0.2941
+	Ks 0.7059 0.7059 0.7059
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_USB_Socket_PTongue_BPlastik__Red
+	Ns 40.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_USB_Socket_PTongue_YMetal__Red
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9922 0.3255 0.0000
+	Ks 0.8549 0.6235 0.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_Keybord_Adaptor__Red
+	Ns 65.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_Keybord_Adaptor_YPins__Red
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9922 0.3255 0.0000
+	Ks 0.8549 0.6235 0.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_Nokia_Word__Red
+	Ns 50.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl NL_2520_Speaker_Protector_Frame__Red
+	Ns 100.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5000 0.5000 0.5000
+	Ks 1.0000 1.0000 1.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka D:\SeyhanEFENDILER\Lumia_2520\NL_2520_Presentation_Files\NL_2520_Models\NL_2520_Red\NL_2520_Speaker_Grid_Diff.jpg
+	map_Kd D:\SeyhanEFENDILER\Lumia_2520\NL_2520_Presentation_Files\NL_2520_Models\NL_2520_Red\NL_2520_Speaker_Grid_Diff.jpg
+	map_bump D:\SeyhanEFENDILER\Lumia_2520\NL_2520_Presentation_Files\NL_2520_Models\NL_2520_Red\NL_2520_Speaker_Grid_Bump.jpg
+	bump D:\SeyhanEFENDILER\Lumia_2520\NL_2520_Presentation_Files\NL_2520_Models\NL_2520_Red\NL_2520_Speaker_Grid_Bump.jpg
