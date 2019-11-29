@@ -54,14 +54,18 @@ public class CM
         }
     }
 
-    public static void DrawLineBetweenTwoVectors(Vector3 v1, Vector3 v2, Color color, Material lineMat, GameObject go, LineRenderer lineRenderer)
+    public static void DrawLineBetweenTwoVectors(Vector3 v1, Vector3 v2, Color color, Material lineMat, GameObject go, LineRenderer lineRenderer, bool view)
     {
-        go.transform.position = v2;
+       
         lineRenderer.material = lineMat;
         lineRenderer.SetPosition(0, v1);
         lineRenderer.SetPosition(1, v2);
-        lineRenderer.startWidth = 0.01f;
-        lineRenderer.endWidth = 0.01f;
+        if (!view)
+        {
+            lineRenderer.alignment = LineAlignment.TransformZ;
+        }
+        lineRenderer.startWidth = 1f;
+        lineRenderer.endWidth = 1f;
         lineRenderer.startColor = color;
         lineRenderer.endColor = color;
     }
