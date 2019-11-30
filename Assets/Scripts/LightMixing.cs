@@ -33,9 +33,9 @@ public class LightMixing : MonoBehaviour
     public GameObject OutputLaserGO;
 
     // Current Color
-    public Color RedValue = Color.red;
-    public Color GreenValue = Color.green;
-    public Color BlueValue = Color.blue;
+    public Color RedValue = Color.clear;
+    public Color GreenValue = Color.clear;
+    public Color BlueValue = Color.clear;
     public Color OutputVal;
 
     // Current Color String
