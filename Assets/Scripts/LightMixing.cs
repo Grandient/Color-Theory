@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LightMixing : MonoBehaviour
@@ -15,6 +16,10 @@ public class LightMixing : MonoBehaviour
 
     // Mirror Gameobject
     public GameObject Mirror;
+
+    // Matching GameObject
+    public GameObject ColorMatcher;
+    public GameObject Result;
 
     // Laser GameObject
     public GameObject RedLaserGO;
@@ -42,6 +47,8 @@ public class LightMixing : MonoBehaviour
     // Selections
     KeyCode left = KeyCode.Alpha0;
     KeyCode right = KeyCode.Alpha1;
+    KeyCode select = KeyCode.Return;
+    KeyCode reset = KeyCode.R;
     
     // Power
     KeyCode up = KeyCode.Alpha2;
@@ -55,6 +62,7 @@ public class LightMixing : MonoBehaviour
 
     // Variable
     public int increment = 25;
+    Color TrueValue = Color.magenta;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +72,7 @@ public class LightMixing : MonoBehaviour
         GreenLaser = GreenLaserGO.AddComponent<LineRenderer>();
         BlueLaser = BlueLaserGO.AddComponent<LineRenderer>();
         OutputLaser = OutputLaserGO.AddComponent<LineRenderer>();
+        CM.SetColorMaterialTransform(TrueValue, ColorMatcher.transform);
 
         CM.DrawLineBetweenTwoVectors(RedLaserGO.transform.position, Mirror.transform.position, RedValue, LineMaterial, RedLaserGO, RedLaser, false);
         CM.DrawLineBetweenTwoVectors(BlueLaserGO.transform.position, Mirror.transform.position, BlueValue, LineMaterial, BlueLaserGO, BlueLaser, true);
@@ -128,6 +137,20 @@ public class LightMixing : MonoBehaviour
             }
         }
 
+        // Select
+        if (Input.GetKeyDown(select))
+        {
+            Match();
+        }
+
+        // 
+        if (Input.GetKeyDown(reset))
+        {
+            Debug.Log("Reset");
+            ResetColors();
+        }
+
+
         if (Red)
         {
             if (Input.GetKeyDown(up))
@@ -175,18 +198,66 @@ public class LightMixing : MonoBehaviour
         }
     }
 
+    public void ResetColors()
+    {
+        RedValue = Color.clear;
+        BlueValue = Color.clear;
+        GreenValue = Color.clear;
+        OutputVal = Color.clear;
+        CM.DrawLineBetweenTwoVectors(RedLaserGO.transform.position, Mirror.transform.position, RedValue, LineMaterial, RedLaserGO, RedLaser, false);
+        CM.DrawLineBetweenTwoVectors(BlueLaserGO.transform.position, Mirror.transform.position, BlueValue, LineMaterial, BlueLaserGO, BlueLaser, true);
+        CM.DrawLineBetweenTwoVectors(GreenLaserGO.transform.position, Mirror.transform.position, GreenValue, LineMaterial, GreenLaserGO, GreenLaser, false);
+        CM.DrawLineBetweenTwoVectors(Mirror.transform.position, OutputLaserGO.transform.position, OutputVal, LineMaterial, OutputLaserGO, OutputLaser, true);
+
+    }
+
+    public void GenerateTruth()
+    {
+        
+    }
+
     public void Match()
     {
+        string resultOutput = CM.ConvertToHex(OutputVal);
+        // Red
+        string redstr1 = resultOutput[1].ToString() + resultOutput[2].ToString();
+        int red1 = int.Parse(redstr1, System.Globalization.NumberStyles.HexNumber);
+        // Green
+        string greenstr1 = resultOutput[3].ToString() + resultOutput[4].ToString();
+        int green1 = int.Parse(greenstr1, System.Globalization.NumberStyles.HexNumber);
+        // Blue
+        string bluestr1 = resultOutput[5].ToString() + resultOutput[6].ToString();
+        int blue1 = int.Parse(bluestr1, System.Globalization.NumberStyles.HexNumber);
 
-    }
+        string result = CM.ConvertToHex(TrueValue);
+        // Red
+        string redstr2 = result[1].ToString() + result[2].ToString();
+        int red2 = int.Parse(redstr2, System.Globalization.NumberStyles.HexNumber);
+        // Green
+        string greenstr2 = result[3].ToString() + result[4].ToString();
+        int green2 = int.Parse(greenstr2, System.Globalization.NumberStyles.HexNumber);
+        // Blue
+        string bluestr2 = result[5].ToString() + result[6].ToString();
+        int blue2 = int.Parse(bluestr2, System.Globalization.NumberStyles.HexNumber);
 
-    public void Brighten()
-    {
+        int redResult = red1 - red2;
+        int blueResult = blue1 - blue2;
+        int greenResult = green1 - green2;
 
-    }
+        int[] arr = new int[] { redResult, blueResult, greenResult };
+        int max = arr.Max();
 
-    public void Darken()
-    {
+        
+        if (max <= increment)
+        {
+            Debug.Log("Color Matched");
+            CM.SetColorMaterialTransform(Color.green, Result.transform);
+        } else
+        {
+            Debug.Log("Color Unmatched");
+            CM.SetColorMaterialTransform(Color.red, Result.transform);
+        }
+
 
     }
 
@@ -196,7 +267,10 @@ public class LightMixing : MonoBehaviour
         string redstr = result[1].ToString() + result[2].ToString();
         int red = int.Parse(redstr, System.Globalization.NumberStyles.HexNumber);
 
+        //int alpha = increment / 3;
+
         int newred = 0;
+        
         if (up)
         {
             if(red+increment >= 255)
@@ -210,9 +284,12 @@ public class LightMixing : MonoBehaviour
             
         } else {
 
-            if(red-increment<= 0)
+            if(red-increment <= 0)
             {
                 Debug.Log("Red at zero");
+                RedValue = Color.clear;
+                CM.DrawLineBetweenTwoVectors(RedLaserGO.transform.position, Mirror.transform.position, RedValue, LineMaterial, RedLaserGO, RedLaser, false);
+                ChangeOutput();
                 return;
             } else
             {
@@ -223,6 +300,10 @@ public class LightMixing : MonoBehaviour
 
         Debug.Log(newred);
         string hexValue = "#" + newred.ToString("X") + "0000";
+        if(hexValue.Length == 6)
+        {
+            hexValue = hexValue.Insert(1, "0");
+        }
         RedValue = CM.ConvertToColor(hexValue);
         
         CM.DrawLineBetweenTwoVectors(RedLaserGO.transform.position, Mirror.transform.position, RedValue, LineMaterial, RedLaserGO, RedLaser, false);
@@ -255,6 +336,9 @@ public class LightMixing : MonoBehaviour
             if (green-increment <= 0)
             {
                 Debug.Log("Green at zero");
+                GreenValue = Color.clear;
+                CM.DrawLineBetweenTwoVectors(GreenLaserGO.transform.position, Mirror.transform.position, GreenValue, LineMaterial, GreenLaserGO, GreenLaser, false);
+                ChangeOutput();
                 return;
             }
             else
@@ -266,6 +350,10 @@ public class LightMixing : MonoBehaviour
 
         Debug.Log(newgreen);
         string hexValue = "#00" + newgreen.ToString("X") + "00";
+        if (hexValue.Length == 6)
+        {
+            hexValue = hexValue.Insert(3, "0");
+        }
         GreenValue = CM.ConvertToColor(hexValue);
         CM.DrawLineBetweenTwoVectors(GreenLaserGO.transform.position, Mirror.transform.position, GreenValue, LineMaterial, GreenLaserGO, GreenLaser, false);
         ChangeOutput();
@@ -294,7 +382,10 @@ public class LightMixing : MonoBehaviour
         {
             if (blue-increment <= 0)
             {
-                Debug.Log("Green at zero or will be below zero.");
+                Debug.Log("Blue at zero or will be below zero.");
+                BlueValue = Color.clear;
+                CM.DrawLineBetweenTwoVectors(BlueLaserGO.transform.position, Mirror.transform.position, BlueValue, LineMaterial, BlueLaserGO, BlueLaser, true);
+                ChangeOutput();
                 return;
             }
             else
@@ -306,6 +397,10 @@ public class LightMixing : MonoBehaviour
 
         Debug.Log(newblue);
         string hexValue = "#0000" + newblue.ToString("X");
+        if (hexValue.Length == 6)
+        {
+            hexValue = hexValue.Insert(5, "0");
+        }
         BlueValue = CM.ConvertToColor(hexValue);
         Debug.Log(BlueValue);
         CM.DrawLineBetweenTwoVectors(BlueLaserGO.transform.position, Mirror.transform.position, BlueValue, LineMaterial, BlueLaserGO, BlueLaser, true);
@@ -320,6 +415,10 @@ public class LightMixing : MonoBehaviour
 
         string hexValue = "#" + red[1] + red[2] + green[3] + green[4] + blue[5] + blue[6];
         OutputVal = CM.ConvertToColor(hexValue);
+        if (RedValue == Color.clear && GreenValue == Color.clear && BlueValue == Color.clear)
+        {
+            OutputVal = Color.clear;
+        }
         CM.DrawLineBetweenTwoVectors(Mirror.transform.position, OutputLaserGO.transform.position, OutputVal, LineMaterial, OutputLaserGO, OutputLaser, true);
     }
 
