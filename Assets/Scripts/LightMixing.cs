@@ -21,6 +21,11 @@ public class LightMixing : MonoBehaviour
     public GameObject ColorMatcher;
     public GameObject Result;
 
+    // Knobs
+    public GameObject redKnob;
+    public GameObject greenKnob;
+    public GameObject blueKnob;
+
     // Laser GameObject
     public GameObject RedLaserGO;
     public GameObject GreenLaserGO;
@@ -67,13 +72,22 @@ public class LightMixing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         OutputVal = Color.white;
+
+        // Add The Line Renderers
         RedLaser = RedLaserGO.AddComponent<LineRenderer>();
         GreenLaser = GreenLaserGO.AddComponent<LineRenderer>();
         BlueLaser = BlueLaserGO.AddComponent<LineRenderer>();
         OutputLaser = OutputLaserGO.AddComponent<LineRenderer>();
-        CM.SetColorMaterialTransform(TrueValue, ColorMatcher.transform);
 
+        // Set Colors
+        CM.SetColorMaterialTransform(TrueValue, ColorMatcher.transform);
+        CM.SetColorMaterialTransform(Color.red, redKnob.transform);
+        CM.SetColorMaterialTransform(Color.green, greenKnob.transform);
+        CM.SetColorMaterialTransform(Color.blue, blueKnob.transform);
+
+        // Draw Lines
         CM.DrawLineBetweenTwoVectors(RedLaserGO.transform.position, Mirror.transform.position, RedValue, LineMaterial, RedLaserGO, RedLaser, false);
         CM.DrawLineBetweenTwoVectors(BlueLaserGO.transform.position, Mirror.transform.position, BlueValue, LineMaterial, BlueLaserGO, BlueLaser, true);
         CM.DrawLineBetweenTwoVectors(GreenLaserGO.transform.position, Mirror.transform.position, GreenValue, LineMaterial, GreenLaserGO, GreenLaser, false);
@@ -107,9 +121,10 @@ public class LightMixing : MonoBehaviour
                 default:
                     break;
             }
+            SelectKnob();
         }
 
-        PrintColor();
+        //PrintColor();
 
         // Switch Right
         if (Input.GetKeyDown(right))
@@ -135,22 +150,23 @@ public class LightMixing : MonoBehaviour
                 default:
                     break;
             }
+            SelectKnob();
         }
 
-        // Select
+        // Choose
         if (Input.GetKeyDown(select))
         {
             Match();
         }
 
-        // 
+        // Reset
         if (Input.GetKeyDown(reset))
         {
             Debug.Log("Reset");
             ResetColors();
         }
 
-
+        //Red
         if (Red)
         {
             if (Input.GetKeyDown(up))
@@ -167,6 +183,7 @@ public class LightMixing : MonoBehaviour
             
         }
 
+        // Green
         if (Green)
         {
             if (Input.GetKeyDown(up))
@@ -182,6 +199,7 @@ public class LightMixing : MonoBehaviour
             }
         }
 
+        // Blue
         if (Blue)
         {
             if (Input.GetKeyDown(up))
@@ -195,6 +213,92 @@ public class LightMixing : MonoBehaviour
                 Debug.Log("Down");
                 ChangeBlue(false);
             }
+        }
+    }
+
+    public void RotateKnob(bool up)
+    {
+        float angle = 360;
+        float color = 255;
+        float rotationMultiplier = angle/color;
+        Vector3 rotation = new Vector3(0f, rotationMultiplier * increment, 0f);
+        if (up)
+        {
+            if (Red)
+            {
+                redKnob.transform.eulerAngles += rotation;
+            }
+
+            if (Green)
+            {
+                greenKnob.transform.eulerAngles += rotation;
+            }
+
+            if (Blue)
+            {
+                blueKnob.transform.eulerAngles += rotation;
+            }
+
+        } else
+        {
+            if (Red)
+            {
+                redKnob.transform.eulerAngles -= rotation;
+            }
+
+            if (Green)
+            {
+                greenKnob.transform.eulerAngles -= rotation;
+            }
+
+            if (Blue)
+            {
+                blueKnob.transform.eulerAngles -= rotation;
+            }
+        }
+       
+    }
+
+    public void SelectKnob()
+    {
+        if (Red)
+        {
+            redKnob.transform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+            greenKnob.transform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.black);
+            blueKnob.transform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.black);
+        }
+
+        if (Green)
+        {
+            redKnob.transform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.black);
+            greenKnob.transform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.yellow);
+            blueKnob.transform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.black);
+        }
+
+        if (Blue)
+        {
+            redKnob.transform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.black);
+            greenKnob.transform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.black);
+            blueKnob.transform.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.yellow);
+        }
+    }
+
+    public void SetKnob()
+    {
+        Vector3 rotation = Vector3.zero;
+        if (Red)
+        {
+            redKnob.transform.eulerAngles = rotation;
+        }
+
+        if (Green)
+        {
+            greenKnob.transform.eulerAngles = rotation;
+        }
+
+        if (Blue)
+        {
+            blueKnob.transform.eulerAngles = rotation;
         }
     }
 
@@ -276,10 +380,12 @@ public class LightMixing : MonoBehaviour
             if(red+increment >= 255)
             {
                 Debug.Log("Red at maximum");
+                SetKnob();
                 return;
             } else
             {
                 newred = red + increment;
+                RotateKnob(up);
             }
             
         } else {
@@ -290,10 +396,12 @@ public class LightMixing : MonoBehaviour
                 RedValue = Color.clear;
                 CM.DrawLineBetweenTwoVectors(RedLaserGO.transform.position, Mirror.transform.position, RedValue, LineMaterial, RedLaserGO, RedLaser, false);
                 ChangeOutput();
+                SetKnob();
                 return;
             } else
             {
                 newred = red - increment;
+                RotateKnob(up);
             }
             
         }
@@ -322,11 +430,13 @@ public class LightMixing : MonoBehaviour
             if (green+increment >= 255)
             {
                 Debug.Log("Green at maximum");
+                SetKnob();
                 return;
             }
             else
             {
                 newgreen = green + increment;
+                RotateKnob(up);
             }
 
         }
@@ -339,11 +449,13 @@ public class LightMixing : MonoBehaviour
                 GreenValue = Color.clear;
                 CM.DrawLineBetweenTwoVectors(GreenLaserGO.transform.position, Mirror.transform.position, GreenValue, LineMaterial, GreenLaserGO, GreenLaser, false);
                 ChangeOutput();
+                SetKnob();
                 return;
             }
             else
             {
                 newgreen = green - increment;
+                RotateKnob(up);
             }
 
         }
@@ -371,11 +483,13 @@ public class LightMixing : MonoBehaviour
             if (blue+increment >= 255)
             {
                 Debug.Log("Blue at maximum");
+                SetKnob();
                 return;
             }
             else
             {
                 newblue = blue + increment;
+                RotateKnob(up);
             }
         }
         else
@@ -386,11 +500,13 @@ public class LightMixing : MonoBehaviour
                 BlueValue = Color.clear;
                 CM.DrawLineBetweenTwoVectors(BlueLaserGO.transform.position, Mirror.transform.position, BlueValue, LineMaterial, BlueLaserGO, BlueLaser, true);
                 ChangeOutput();
+                SetKnob();
                 return;
             }
             else
             {
                 newblue = blue - increment;
+                RotateKnob(up);
             }
 
         }
