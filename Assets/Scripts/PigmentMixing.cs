@@ -47,7 +47,8 @@ public class PigmentMixing : MonoBehaviour
     float color = 255;
     float angle = 360;
     public float mixtureMax = 0;
-    public float heightMax = 0;
+    public float heightMax = 2.3f;
+    public float heightMin = 0.166f;
     Color TrueValue = Color.magenta;
 
     // Start is called before the first frame update
@@ -293,6 +294,7 @@ public class PigmentMixing : MonoBehaviour
 
     public void Match()
     {
+        // Output
         string resultOutput = CM.ConvertToHex(OutputVal);
         // Red
         string redstr1 = resultOutput[1].ToString() + resultOutput[2].ToString();
@@ -304,6 +306,7 @@ public class PigmentMixing : MonoBehaviour
         string bluestr1 = resultOutput[5].ToString() + resultOutput[6].ToString();
         int blue1 = int.Parse(bluestr1, System.Globalization.NumberStyles.HexNumber);
 
+        // True
         string result = CM.ConvertToHex(TrueValue);
         // Red
         string redstr2 = result[1].ToString() + result[2].ToString();
@@ -315,10 +318,12 @@ public class PigmentMixing : MonoBehaviour
         string bluestr2 = result[5].ToString() + result[6].ToString();
         int blue2 = int.Parse(bluestr2, System.Globalization.NumberStyles.HexNumber);
 
+        // Result
         int redResult = red1 - red2;
         int blueResult = blue1 - blue2;
         int greenResult = green1 - green2;
 
+        // Array
         int[] arr = new int[] { redResult, blueResult, greenResult };
         int max = arr.Max();
 
@@ -492,19 +497,28 @@ public class PigmentMixing : MonoBehaviour
 
     public void ChangeOutput()
     {
+        // CMY
         string cyan = CM.ConvertToHex(CyanValue);
         string magenta = CM.ConvertToHex(MagnetaValue);
         string yellow = CM.ConvertToHex(YellowValue);
-
         string hexValue = "#" + cyan[1] + cyan[2] + magenta[3] + magenta[4] + yellow[5] + yellow[6];
+
+        // Change color
         OutputVal = CM.ConvertToColor(hexValue);
         if (CyanValue == Color.black && MagnetaValue == Color.black && YellowValue == Color.black)
         {
             OutputVal = Color.black;
         }
 
+        // Color
         ParticleSystem.MainModule psMain = mixture.main;
         psMain.startColor = OutputVal;
+
+        // Length
+        float length = heightMax * (1 / mixtureMax);
+        ParticleSystem.ShapeModule psShape = mixture.shape;
+        psShape.length = length;
+        
     }
 
     public void PrintColor()
