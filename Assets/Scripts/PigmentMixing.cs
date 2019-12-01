@@ -47,14 +47,17 @@ public class PigmentMixing : MonoBehaviour
     float color = 255;
     float angle = 360;
     public float mixtureMax = 0;
-    public float heightMax = 2.3f;
-    public float heightMin = 0.166f;
+    float heightMax = 2.3f;
+    float heightMin = 0.166f;
     Color TrueValue = Color.magenta;
 
     // Start is called before the first frame update
     void Start()
     {
         OutputVal = Color.white;
+        CyanValue = Color.white;
+        MagnetaValue = Color.white;
+        YellowValue = Color.white;
 
 
         // Maximum Mixture
@@ -155,11 +158,12 @@ public class PigmentMixing : MonoBehaviour
                 ChangeCyan(true);
             }
 
+            /*
             if (Input.GetKeyDown(down))
             {
                 Debug.Log("Down");
                 ChangeCyan(false);
-            }
+            }*/
 
         }
 
@@ -171,12 +175,12 @@ public class PigmentMixing : MonoBehaviour
                 Debug.Log("Up");
                 ChangeMagenta(true);
             }
-
+            /*
             if (Input.GetKeyDown(down))
             {
                 Debug.Log("Down");
                 ChangeMagenta(false);
-            }
+            }*/
         }
 
         // Blue
@@ -188,11 +192,12 @@ public class PigmentMixing : MonoBehaviour
                 ChangeYellow(true);
             }
 
+            /*
             if (Input.GetKeyDown(down))
             {
                 Debug.Log("Down");
                 ChangeYellow(false);
-            }
+            }*/
         }
     }
 
@@ -347,52 +352,53 @@ public class PigmentMixing : MonoBehaviour
         string result = CM.ConvertToHex(CyanValue);
         string redstr = result[1].ToString() + result[2].ToString();
         int red = int.Parse(redstr, System.Globalization.NumberStyles.HexNumber);
-        int cyan = 255 - red;
+        int newred = 0;
 
-        int newcyan = 0;
-
-        if (!up)
+        if (up)
         {
-            if (cyan + increment >= 255)
+            // Max
+            if (red - increment <= 0)
             {
-                Debug.Log("Cyan at minimum.");
+                Debug.Log("Cyan at maximum");
                 CyanValue = Color.black;
+                ChangeOutput(up);
                 SetKnob();
                 return;
             }
             else
             {
-                newcyan = cyan + increment;
+                // Approach 0 
+                newred = red - increment;
                 RotateKnob(up);
             }
-
         }
         else
         {
-
-            if (cyan - increment <= 0)
+            //Minimum
+            if (red + increment >= 255)
             {
-                Debug.Log("Cyan at zero");
-                ChangeOutput();
+                Debug.Log("Cyan at minimum.");
+                CyanValue = Color.white;
+                ChangeOutput(up);
                 SetKnob();
                 return;
             }
             else
             {
-                newcyan = cyan - increment;
+                // Approach 255
+                newred = red + increment;
                 RotateKnob(up);
             }
-
         }
 
-        Debug.Log(newcyan);
-        string hexValue = "#" + newcyan.ToString("X") + "0000";
+        Debug.Log(newred);
+        string hexValue = "#" + newred.ToString("X") + "0000";
         if (hexValue.Length == 6)
         {
             hexValue = hexValue.Insert(1, "0");
         }
         CyanValue = CM.ConvertToColor(hexValue);
-        ChangeOutput();
+        ChangeOutput(up);
     }
 
     public void ChangeMagenta(bool up)
@@ -400,51 +406,50 @@ public class PigmentMixing : MonoBehaviour
         string result = CM.ConvertToHex(MagnetaValue);
         string greenstr = result[3].ToString() + result[4].ToString();
         int green = int.Parse(greenstr, System.Globalization.NumberStyles.HexNumber);
-        int magenta = 255 - green;
+        int newgreen = 0;
 
-        int newmagenta = 0;
-        if (!up)
+        if (up)
         {
-            if (magenta + increment >= 255)
+            if (green - increment <= 0)
             {
                 Debug.Log("Magenta at maximum");
                 MagnetaValue = Color.black;
+                ChangeOutput(up);
                 SetKnob();
                 return;
             }
             else
             {
-                newmagenta = magenta + increment;
+                newgreen = green - increment;
                 RotateKnob(up);
             }
-
         }
         else
         {
-
-            if (magenta - increment <= 0)
+            if (green + increment >= 255)
             {
-                Debug.Log("Magenta at zero");
-                ChangeOutput();
+                Debug.Log("Magenta at minimum");
+                MagnetaValue = Color.white;
+                ChangeOutput(up);
                 SetKnob();
                 return;
             }
             else
             {
-                newmagenta = magenta - increment;
+                newgreen = green + increment;
                 RotateKnob(up);
             }
 
         }
 
-        Debug.Log(newmagenta);
-        string hexValue = "#00" + newmagenta.ToString("X") + "00";
+        Debug.Log(newgreen);
+        string hexValue = "#00" + newgreen.ToString("X") + "00";
         if (hexValue.Length == 6)
         {
             hexValue = hexValue.Insert(3, "0");
         }
         MagnetaValue = CM.ConvertToColor(hexValue);
-        ChangeOutput();
+        ChangeOutput(up);
     }
 
     public void ChangeYellow(bool up)
@@ -452,50 +457,52 @@ public class PigmentMixing : MonoBehaviour
         string result = CM.ConvertToHex(YellowValue);
         string bluestr = result[5].ToString() + result[6].ToString();
         int blue = int.Parse(bluestr, System.Globalization.NumberStyles.HexNumber);
-        int yellow = 255 - blue;
 
-        int newyellow = 0;
-        if (!up)
+        int newblue = 0;
+        if (up)
         {
-            if (yellow + increment >= 255)
+            if (blue - increment <= 0)
             {
-                Debug.Log("Yellow at maximum");
-                SetKnob();
+                Debug.Log("Yellow at maximum.");
                 YellowValue = Color.black;
+                ChangeOutput(up);
+                SetKnob();
                 return;
             }
             else
             {
-                newyellow = yellow + increment;
+                newblue = blue - increment;
                 RotateKnob(up);
             }
         }
         else
         {
-            if (yellow - increment <= 0)
+            if (blue + increment >= 255)
             {
-                Debug.Log("Yellow at zero or will be below zero.");
-                ChangeOutput();
+                Debug.Log("Yellow at minimum");
+                YellowValue = Color.white;
+                ChangeOutput(up);
                 SetKnob();
                 return;
             }
             else
             {
-                newyellow = yellow - increment;
+                newblue = blue + increment;
                 RotateKnob(up);
             }
 
         }
-        string hexValue = "#0000" + newyellow.ToString("X");
+
+        string hexValue = "#0000" + newblue.ToString("X");
         if (hexValue.Length == 6)
         {
             hexValue = hexValue.Insert(5, "0");
         }
         YellowValue = CM.ConvertToColor(hexValue);
-        ChangeOutput();
+        ChangeOutput(up);
     }
 
-    public void ChangeOutput()
+    public void ChangeOutput(bool up)
     {
         // CMY
         string cyan = CM.ConvertToHex(CyanValue);
@@ -517,7 +524,20 @@ public class PigmentMixing : MonoBehaviour
         // Length
         float length = heightMax * (1 / mixtureMax);
         ParticleSystem.ShapeModule psShape = mixture.shape;
-        psShape.length = length;
+        if (up)
+        {
+            if (psShape.length + length < heightMax)
+            {
+                psShape.length += length;
+            }
+        } else
+        {
+            if (psShape.length - length > heightMin)
+            {
+                psShape.length -= length;
+            }
+        }
+        
         
     }
 

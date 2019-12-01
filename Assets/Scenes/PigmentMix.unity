@@ -3510,8 +3510,6 @@ MonoBehaviour:
   index: 0
   increment: 25
   mixtureMax: 1
-  heightMax: 0
-  heightMin: 0.166
 --- !u!1001 &957604932
 PrefabInstance:
   m_ObjectHideFlags: 0
