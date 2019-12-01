@@ -5,20 +5,22 @@ using UnityEngine;
 // Script that deals with the color theming game
 public class ThemeGame : MonoBehaviour
 {
+    public Camera cam;
     // Canvas
     public GameObject Canvas;
 
     // Colors
-    public List<GameObject> ColorsGO;
     public List<Color> Colors;
 
     // Values
     public Color SelectedValue = new Color();
     public Color TrueValue = new Color();
+    public Color BaseValue = new Color();
 
     // Results
     public GameObject Result;
     public GameObject SelectedColor;
+    public GameObject BaseValueGO;
 
     // Increment
     public int increment = 25;
@@ -28,16 +30,41 @@ public class ThemeGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetBaseValue();
         DivisibleByIncrement();
         GenerateColors(9);
         AddColors();
+    
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit) && hit.transform.parent.name == "Colors")
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log("Pressed primary button.");
+                Select(CM.GetColorMaterialTransform(hit.transform));
+            }
+        }
+        else if (Physics.Raycast(ray, out hit) && hit.transform.name == "PickedColor")
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Match();
+            }
+        }
     }
+
+    public void SetBaseValue()
+    {
+        BaseValue = Color.red;
+        CM.SetColorMaterialTransform(BaseValue, BaseValueGO.transform);
+    }
+        
 
     public void DivisibleByIncrement()
     {
@@ -56,23 +83,36 @@ public class ThemeGame : MonoBehaviour
         {
             if (truthSpot == i)
             {
-                Color result = GetComplement(TrueValue);
+                Color result = GetComplement(BaseValue);
+                TrueValue = result;
                 Colors.Add(result);
                 continue;
             }
-            float max = 255;
-            float red = possibleValues[rand.Next(0, possibleValues.Count - 1)]/max;
-            float green = possibleValues[rand.Next(0, possibleValues.Count - 1)]/max;
-            float blue = possibleValues[rand.Next(0, possibleValues.Count - 1)]/max;
-
-            Colors.Add(new Color(red, green, blue));
+            
+            Colors.Add(GenerateRandomColor());
         }
         Debug.Log(Colors.Count);
     }
 
-    public Color GetComplement(Color value)
+    public Color GenerateRandomColor()
     {
-        return Color.clear;
+        float max = 255;
+        float red = possibleValues[rand.Next(0, possibleValues.Count - 1)] / max;
+        float green = possibleValues[rand.Next(0, possibleValues.Count - 1)] / max;
+        float blue = possibleValues[rand.Next(0, possibleValues.Count - 1)] / max;
+        return new Color(red, green, blue);
+    }
+
+    public Color GetComplement(Color color)
+    {
+        float hue = 0;
+        float saturation = 0;
+        float value = 0;
+        Color.RGBToHSV(color, out hue, out saturation, out value);
+
+        float newhue = (hue + 0.5f) % 1f;
+        color = Color.HSVToRGB(newhue, saturation, value);
+        return color;
     }
 
     public void AddColors()
@@ -87,7 +127,8 @@ public class ThemeGame : MonoBehaviour
 
     public void Select(Color select)
     {
-        CM.SetColorMaterialTransform(select, SelectedColor.transform);
+        SelectedValue = select;
+        CM.SetColorMaterialTransform(SelectedValue, SelectedColor.transform);
     }
 
 

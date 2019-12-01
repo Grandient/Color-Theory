@@ -1167,13 +1167,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21bda2908fa197241b9d378a275f301b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 1695478763}
   Canvas: {fileID: 601822101}
-  ColorsGO: []
   Colors: []
   SelectedValue: {r: 0, g: 0, b: 0, a: 0}
   TrueValue: {r: 0, g: 0, b: 0, a: 0}
+  BaseValue: {r: 0, g: 0, b: 0, a: 0}
   Result: {fileID: 1077610847}
   SelectedColor: {fileID: 2082707283}
+  BaseValueGO: {fileID: 1768066573}
   increment: 25
 --- !u!1 &292036042
 GameObject:
@@ -7455,6 +7457,12 @@ Transform:
   m_Father: {fileID: 944236383}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1695478763 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1795632856904888027, guid: 059ce8069d3674341a0fbc59614fa2fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1910708862}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1701975271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12652,7 +12660,7 @@ GameObject:
   - component: {fileID: 1768066576}
   - component: {fileID: 1768066575}
   m_Layer: 0
-  m_Name: FindComplement
+  m_Name: BaseValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
