@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class SelectKnobWithCamera : MonoBehaviour
 {
-    Camera cam;
+    // GameObjects
+    public Camera cam;
     public GameObject lightMixGO;
-    public LightMixing lightMixGame;
     public GameObject pigmentMixGO;
-    public PigmentMixing pigmentMixGame;
+
+    // Games
+    LightMixing lightMixGame;
+    PigmentMixing pigmentMixGame;
 
     // Start is called before the first frame update
     void Start()
