@@ -2,7 +2,7 @@
 using UnityEngine;
 public class PigmentMixing : MonoBehaviour
 {
- 
+
     // Matching GameObject
     public GameObject ColorMatcher;
     public GameObject Result;
@@ -22,9 +22,9 @@ public class PigmentMixing : MonoBehaviour
     public Color OutputVal;
 
     // Boolean
-    bool Cyan = true;
-    bool Magneta = false;
-    bool Yellow = false;
+    public bool Cyan = true;
+    public bool Magneta = false;
+    public bool Yellow = false;
 
     // Selections
     KeyCode left = KeyCode.Alpha0;
@@ -68,7 +68,7 @@ public class PigmentMixing : MonoBehaviour
             piece += increment;
             mixtureMax++;
         }
-       
+
 
         // Set Colors
         CM.SetColorMaterialTransform(TrueValue, ColorMatcher.transform);
@@ -530,15 +530,16 @@ public class PigmentMixing : MonoBehaviour
             {
                 psShape.length += length;
             }
-        } else
+        }
+        else
         {
             if (psShape.length - length > heightMin)
             {
                 psShape.length -= length;
             }
         }
-        
-        
+
+
     }
 
     public void PrintColor()

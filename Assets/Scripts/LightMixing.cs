@@ -45,9 +45,9 @@ public class LightMixing : MonoBehaviour
     public string OutputValueStr = "";
 
     // Boolean
-    bool Red = true;
-    bool Green = false;
-    bool Blue = false;
+    public bool Red = true;
+    public bool Green = false;
+    public bool Blue = false;
 
     // Selections
     KeyCode left = KeyCode.Alpha0;

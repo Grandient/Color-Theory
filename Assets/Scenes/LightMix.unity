@@ -185,6 +185,9 @@ MonoBehaviour:
   GreenValueStr: 
   BlueValueStr: 
   OutputValueStr: 
+  Red: 1
+  Green: 0
+  Blue: 0
   index: 0
   increment: 25
 --- !u!1 &79880346
@@ -3507,11 +3510,12 @@ MonoBehaviour:
   MagnetaValue: {r: 1, g: 0, b: 1, a: 1}
   YellowValue: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   OutputVal: {r: 0, g: 0, b: 0, a: 0}
+  Cyan: 1
+  Magneta: 0
+  Yellow: 0
   index: 0
   increment: 25
   mixtureMax: 1
-  heightMax: 0
-  heightMin: 0.166
 --- !u!1001 &957604932
 PrefabInstance:
   m_ObjectHideFlags: 0
